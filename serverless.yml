@@ -1,0 +1,30 @@
+service: bedrock-appsync
+frameworkVersion: "3"
+
+useDotenv: true
+
+provider:
+  name: aws
+  region: ap-southeast-1
+  runtime: nodejs20.x
+
+appSync: ${file(serverless.appsync-api.yml)}
+
+functions:
+  auth:
+    handler: src/auth.handler
+  invokeModel:
+    handler: src/invokeModel.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "bedrock:InvokeModelWithResponseStream"
+        Resource: "*"
+    timeout: 120
+    environment:
+      API_URL: ${env:API_URL}
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-appsync-plugin
+  - serverless-iam-roles-per-function

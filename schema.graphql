@@ -1,0 +1,19 @@
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}
+
+type Query {
+	ping: Boolean!
+}
+
+type Mutation {
+	invokeModel: Boolean!
+
+	send(data: String!): String
+}
+
+type Subscription {
+	chat: String @aws_subscribe(mutations: ["send"])
+}

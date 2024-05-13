@@ -1,0 +1,32 @@
+name: bedrock-appsync
+schema: schema.graphql
+logging:
+  level: ALL
+xrayEnabled: true
+authentication:
+  type: "AWS_LAMBDA"
+  config:
+    authorizerResultTtlInSeconds: 3600
+    functionArn: !GetAtt AuthLambdaFunction.Arn
+resolvers:
+  invokeModel:
+    type: Mutation
+    kind: UNIT
+    field: invokeModel
+    dataSource: invokeModelFunction
+
+  send:
+    type: Mutation
+    kind: UNIT
+    field: send
+    code: src/send.js
+    dataSource: api
+
+dataSources:
+  invokeModelFunction:
+    type: AWS_LAMBDA
+    config:
+      functionName: invokeModel
+
+  api:
+    type: "NONE"
