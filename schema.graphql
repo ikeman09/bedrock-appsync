@@ -11,9 +11,9 @@ type Query {
 type Mutation {
 	invokeModel: Boolean!
 
-	send(data: String!): String
+	sendChunk(chunk: String!): String
 }
 
 type Subscription {
-	chat: String @aws_subscribe(mutations: ["send"])
+	chat: String @aws_subscribe(mutations: ["sendChunk"])
 }

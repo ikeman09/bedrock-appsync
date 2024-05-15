@@ -18,9 +18,9 @@ resolvers:
   send:
     type: Mutation
     kind: UNIT
-    field: send
-    code: src/send.js
-    dataSource: api
+    field: sendChunk
+    code: src/sendChunk.js
+    dataSource: none
 
 dataSources:
   invokeModelFunction:
@@ -28,5 +28,5 @@ dataSources:
     config:
       functionName: invokeModel
 
-  api:
+  none:
     type: "NONE"

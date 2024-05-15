@@ -1,6 +1,6 @@
 export function request(ctx) {
 	return {
-		payload: ctx.args.data,
+		payload: ctx.args.chunk,
 	};
 }
 

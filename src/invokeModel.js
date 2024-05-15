@@ -14,7 +14,7 @@ module.exports.handler = async (event) => {
 
 	const body = {
 		prompt: claudPrompt,
-		max_tokens_to_sample: 300,
+		max_tokens_to_sample: 3000,
 		temperature: 0.5,
 		top_k: 250,
 		top_p: 0.5,
@@ -45,12 +45,12 @@ module.exports.handler = async (event) => {
 		chunks.push(parsed.completion);
 
 		// send the chunk to to the send mutation
-		const mutation = `mutation send($data: String!) {
-			send(data: $data)
+		const mutation = `mutation sendChunk($chunk: String!) {
+			sendChunk(chunk: $chunk)
 		}`;
 
 		const variables = {
-			data: parsed.completion,
+			chunk: parsed.completion,
 		};
 
 		await GraphQL(process.env.API_URL, mutation, variables, "test");
